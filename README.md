@@ -21,3 +21,7 @@
 ## RESTful Routes
 
 !["restful routes chart"](assets/restful-routes.png)
+
+## MVC Architecture
+
+!["model view controller chart"](assets/mvc.png)
