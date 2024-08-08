@@ -13,6 +13,9 @@ class ExampleRoutes(Resource):
 
     def get(self):
         return { 'message': 'This is an example' }, 200
+    
+    def post():
+        return {'message': 'This is an example'}, 201
 
 
 api.add_resource(ExampleRoutes, '/examples')
@@ -20,28 +23,48 @@ api.add_resource(ExampleRoutes, '/examples')
 
 
 # TODO: Change the routes below to use the flask_restful syntax
+class SportsRoutes(Resource):
+
+    def get():
+        return [sport.to_dict() for sport in Sport.query.all()], 200
+    
+    def post():
+        try:
+            new_sport = Sport(
+                name=request.json['name'], 
+                representative=request.json['representative']
+            )
+
+            db.session.add( new_sport )
+            db.session.commit()
+
+            return new_sport.to_dict(), 201
+    
+        except Exception as e:
+            return { 'error': str(e) }, 400
+    
 
 @app.get('/sports')
 def all_sports():
     return [ sport.to_dict() for sport in Sport.query.all() ], 200
 
 
-@app.post('/sports')
-def post_sports():
+# @app.post('/sports')
+# def post_sports():
 
-    try:
-        new_sport = Sport(
-            name=request.json['name'], 
-            representative=request.json['representative']
-        )
+#     try:
+#         new_sport = Sport(
+#             name=request.json['name'], 
+#             representative=request.json['representative']
+#         )
 
-        db.session.add( new_sport )
-        db.session.commit()
+#         db.session.add( new_sport )
+#         db.session.commit()
 
-        return new_sport.to_dict(), 201
+#         return new_sport.to_dict(), 201
     
-    except Exception as e:
-        return { 'error': str(e) }, 400
+#     except Exception as e:
+#         return { 'error': str(e) }, 400
     
 
 
